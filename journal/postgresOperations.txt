@@ -1,0 +1,197 @@
+-- CREAZIONE DATABASE CHE GESTISCE I TEST
+CREATE DATABASE testonline;
+
+-- CREAZIONE TABELLE
+CREATE TABLE Test (
+	data TIMESTAMP NOT NULL ,
+	nome VARCHAR NOT NULL ,
+	ordineCasuale BOOLEAN DEFAULT FALSE , -- le domande devono essere presentate in ordine casuale
+	domandeConNumero BOOLEAN DEFAULT FALSE , -- le domande devono essere numerate
+	PRIMARY KEY ( data , nome )
+);
+
+CREATE TABLE Domanda (
+	nome VARCHAR PRIMARY KEY ,
+	testo VARCHAR NOT NULL ,
+	punti DECIMAL (5 ,2) , -- quanti punti vale la domanda . Esempio : 2.0
+	ordineCasuale BOOLEAN DEFAULT FALSE , -- le risposte devono essere presentate in ordine casuale
+	risposteConNumero BOOLEAN DEFAULT FALSE -- le risposte devono essere numerate
+);
+
+CREATE TABLE Risposta (
+	id serial PRIMARY KEY ,
+	testo VARCHAR NOT NULL ,
+	punteggio DECIMAL (5 ,4) CHECK ( punteggio <= 1.0) , -- percentuale dei punti della domanda
+	domanda VARCHAR REFERENCES Domanda
+);
+
+CREATE TABLE InTest (
+	domanda VARCHAR REFERENCES Domanda ,
+	dataTest TIMESTAMP NOT NULL ,
+	nomeTest VARCHAR NOT NULL ,
+	FOREIGN KEY ( dataTest , nomeTest ) REFERENCES Test
+);
+
+-- INSERIMENTO DATI DI ESEMPIO
+
+-- test di programmazione parallela
+
+INSERT INTO test(data,nome,ordinecasuale,domandeconnumero) VALUES ('21-07-2022 10:30:00','programmazione parallela',false,false);
+
+-- domanda 1
+INSERT INTO domanda(nome,testo,punti,ordineCasuale,risposteconnumero) VALUES ('legge di Amdahl','La legge di Amdahl misura',1.0,false,false);
+
+INSERT INTO risposta(testo,punteggio,domanda) VALUES ('lo speedup globale data una percentuale di codice che può essere parallelizzato ed uno speedup teorico massimo',1.0,'legge di Amdahl');
+INSERT INTO risposta(testo,punteggio,domanda) VALUES ('lo speedup teorico data una percentuale di codice che può essere parallelizzato ed uno speedup globale',0.0,'legge di Amdahl');
+
+-- domanda 2
+INSERT INTO domanda(nome,testo,punti,ordineCasuale,risposteconnumero) VALUES ('speedup','Lo speedup è definito dalla seguente formula',1.0,false,false);
+
+INSERT INTO risposta(testo,punteggio,domanda) VALUES ('SPEEDUP = TIME_sequential_exec / TIME_parallel_exec',1.0,'speedup');
+INSERT INTO risposta(testo,punteggio,domanda) VALUES ('SPEEDUP = TIME_parallel_exec / TIME_sequential_exec',0.0,'speedup');
+
+-- domanda 3
+INSERT INTO domanda(nome,testo,punti,ordineCasuale,risposteconnumero) VALUES ('tassonomia di Flynn','Seleziona le architetture appartenenti alla tassonomia di Flynn',4.0,true,false);
+
+INSERT INTO risposta(testo,punteggio,domanda) VALUES ('SISD',0.25,'tassonomia di Flynn');
+INSERT INTO risposta(testo,punteggio,domanda) VALUES ('MISD',0.25,'tassonomia di Flynn');
+INSERT INTO risposta(testo,punteggio,domanda) VALUES ('SIMD',0.25,'tassonomia di Flynn');
+INSERT INTO risposta(testo,punteggio,domanda) VALUES ('MIMD',0.25,'tassonomia di Flynn');
+INSERT INTO risposta(testo,punteggio,domanda) VALUES ('IS',0.00,'tassonomia di Flynn');
+INSERT INTO risposta(testo,punteggio,domanda) VALUES ('CU',0.00,'tassonomia di Flynn');
+INSERT INTO risposta(testo,punteggio,domanda) VALUES ('MM',0.00,'tassonomia di Flynn');
+INSERT INTO risposta(testo,punteggio,domanda) VALUES ('PU',0.00,'tassonomia di Flynn');
+
+-- domanda 4
+INSERT INTO domanda(nome,testo,punti,ordineCasuale,risposteconnumero) VALUES ('UMA','Cosa si intende per UMA quando si parla di shared memory',1.0,false,false);
+
+INSERT INTO risposta(testo,punteggio,domanda) VALUES ('Tutti i processori sono identici ed impiegano lo stesso identico tempo per accedere alla memoria',1.00,'UMA');
+INSERT INTO risposta(testo,punteggio,domanda) VALUES ('Tutti i processori sono diversi ed hanno tempi di accesso diversi alla memoria',0.00,'UMA');
+
+-- domanda 5
+INSERT INTO domanda(nome,testo,punti,ordineCasuale,risposteconnumero) VALUES ('CUDA','I kernel CUDA vengono invocati dalla seguente istruzione',1.0,true,false);
+
+INSERT INTO risposta(testo,punteggio,domanda) VALUES ('MatriMultiplicationKernel<<dimGrid,dimBlock>>',0.00,'CUDA');
+INSERT INTO risposta(testo,punteggio,domanda) VALUES ('MatriMultiplicationKernel<<dimGrid,dimBlock>>(A,B,C,N)',1.00,'CUDA');
+INSERT INTO risposta(testo,punteggio,domanda) VALUES ('MatriMultiplicationKernel(A,B,C,N)',0.00,'CUDA');
+INSERT INTO risposta(testo,punteggio,domanda) VALUES ('MatriMultiplicationKernel<<A,B,C,N>>',0.00,'CUDA');
+
+-- colleghiamo il test con le domande
+INSERT INTO intest (domanda,datatest,nometest) VALUES ('legge di Amdahl','21-07-2022 10:30:00','programmazione parallela');
+INSERT INTO intest (domanda,datatest,nometest) VALUES ('speedup','21-07-2022 10:30:00','programmazione parallela');
+INSERT INTO intest (domanda,datatest,nometest) VALUES ('tassonomia di Flynn','21-07-2022 10:30:00','programmazione parallela');
+INSERT INTO intest (domanda,datatest,nometest) VALUES ('UMA','21-07-2022 10:30:00','programmazione parallela');
+INSERT INTO intest (domanda,datatest,nometest) VALUES ('CUDA','21-07-2022 10:30:00','programmazione parallela');
+
+-- test di basi di dati laboratorio
+INSERT INTO test (data, nome, ordinecasuale, domandeconnumero) VALUES ('2020-07-07 09:00:00', 'Basi di Dati - II appello laboratorio', true, true);
+
+-- domanda 1
+INSERT INTO domanda (nome, risposteconnumero, ordinecasuale, punti, testo) VALUES ('Domanda 1', false, true, 2.00, 'Si consideri il (Piano 1) ed il (Piano 2).\nSi selezioni l''affermazione corretta circa l''analisi dei piani.');
+
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES (0.0000, 'Nel Piano 2 è stato usato anche l''indice creato con il comando\nCREATE INDEX pippo ON insegn(id);\nIl guadagno è di 82 accessi al disco circa ma si potrebbe migliorare con un indice su Discriminante.id ', 'Domanda 1');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES (0.0000, 'Nel Piano 2 è stato usato anche l''indice creato con il comando\nCREATE INDEX ON insegn(id);\nIl guadagno è di 82 secondi circa ma si potrebbe migliorare con un indice su Discriminante.id ', 'Domanda 1');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES (1.0000, 'Nel Piano 2 è stato usato anche l''indice creato con il comando\nCREATE INDEX pippo ON insegn(id) USING hash(id);\nIl guadagno è di 82 accessi al disco circa', 'Domanda 1');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES (0.5000, 'Nel Piano 2 è stato usato anche l''indice creato con il comando\nCREATE INDEX pippo ON insegn(id);\nCREATE INDEX ON ie_aa_it ON inserogato(annoaccademico);Il guadagno è di 82 accessi al disco circa', 'Domanda 1');
+
+-- domanda 2
+INSERT INTO domanda (nome, risposteconnumero, ordinecasuale, punti, testo) VALUES ('Domanda 2', false, true, 2.00, 'Dato il vincolo (A.nome, A.id) -> (B.marca, B.id) indicare qual è la corretta dichiarazione');
+
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES (0.0000, 'Nella tabella B:\nmarca VARCHAR UNIQUE,\nid SERIAL PRIMARY KEY\nNella tabella A:\nnome VARCHAR REFERENCES B(marca)\nid INTEGER REFERENCES B(id)', 'Domanda 2');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES (0.5000, 'Nella tabella B:\nmarca VARCHAR NOT NULL,\nid SERIAL NOT NULL\nNella tabella A:\nnome VARCHAR\nid INTEGER\n FOREIGN KEY (nome, id) REFERENCES B(marca, id)', 'Domanda 2');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 1.0000, 'Nella tabella B:\nmarca CHAR(10) NOT NULL,\nid SERIAL NOT NULL\nUNIQUE (marca, id)\nNella tabella A:\nnome VARCHAR\nid INTEGER\n FOREIGN KEY (nome, id) REFERENCES B(marca, id)', 'Domanda 2');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, 'Nella tabella B:\nmarca VARCHAR NOT NULL,\nid INTEGER NOT NULL\nFOREIGN KEY (marca, id) REFERENCES A(nome, id\nNella tabella A:\nnome VARCHAR\nid SERIAL\n PRIMARY KEY (nome, id)', 'Domanda 2');
+
+-- domanda 3
+INSERT INTO domanda (nome, risposteconnumero, ordinecasuale, punti, testo) VALUES ('Domanda 3', false, true, 2.00, 'Si considerino i seguenti attributi e assegnamenti in una base di dati PostgreSQL:\ninizio = ''06:00:00'' e data = ''2020-05-01''\nQuali sono i valori (con il loro dominio) che si ottengono dalle seguenti operazioni:\n1. inizio + data\n2. data - inizio');
+
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, 'Sono entrambi due valori TIME e rappresentano un istante: in primo le 6 del 2020-05-01, il secondo le 18 del 2020-04-03 ', 'Domanda 3');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.5000, 'Sono entrambi due valori INTERVAL e rappresentano il numero di secondi dal 01/01/1970 dell''istante determinato dalle operazioni ', 'Domanda 3');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, 'Non sono nulla perché non è possibile eseguire le due operazioni', 'Domanda 3');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 1.0000, 'Non sono nulla Sono entrambi due valori TIMESTAMP WITHOUT TIME ZONE e rappresentano un istante: in primo le 6 del 2020-05-01, il secondo le 18 del 2020-04-03  non è possibile eseguire le due operazioni', 'Domanda 3');
+
+-- domanda 4
+INSERT INTO domanda (nome, risposteconnumero, ordinecasuale, punti, testo) VALUES ('Domanda 4', false, true, 2.00, 'Data la tabella\nPROVE_DI_ESAME (\nmatricola INTEGER,\ninserogato INTEGER,\nvoto DECIMAL(4, 2),\ndata DATE)\nsi scelga la query più efficiente che, per ogni studente con almeno 3 prove nel 2019, visualizza la media dei voti ottenuti.');
+
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, 'SELECT matricola, AVG(voto)\nFROM PROVE_DI_ESAME\nWHERE count(*) >= 3 AND EXTRACT(YEAR FROM data) = 2019\nGROUP BY matricola;', 'Domanda 4');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, 'SELECT matricola, AVG(voto)\nFROM PROVE_DI_ESAME\nGROUP BY matricola\n HAVING count(*) >= 3 AND EXTRACT(YEAR FROM data) = 2019;', 'Domanda 4');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.5000, 'SELECT matricola, AVG(voto)\nFROM PROVE_DI_ESAME\nWHERE EXTRACT(YEAR FROM data) = 2019\nGROUP BY matricola\nHAVING count(distinct inserogato)>=3;', 'Domanda 4');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 1.0000, 'SELECT matricola, AVG(voto)\nFROM PROVE_DI_ESAME\nWHERE EXTRACT(YEAR FROM data) = 2019\nGROUP BY matricola\nHAVING count(*)>=3;', 'Domanda 4');
+
+-- domanda 5
+INSERT INTO domanda (nome, risposteconnumero, ordinecasuale, punti, testo) VALUES ('Domanda 5', false, true, 2.00, 'Si scelga qual è la migliore dichiarazione per un attributo che deve rappresentare l''orario di apertura di un ufficio di una compagnia internazionale.');
+
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 1.0000, 'apertura TIME WITH TIME ZONE,', 'Domanda 5');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, 'apertura TIME,', 'Domanda 5');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, 'apertura TIMESTAMP,', 'Domanda 5');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.5000, 'apertura TIMESTAMP WITH TIME ZONE,', 'Domanda 5');
+
+-- domanda 6
+INSERT INTO domanda (nome, risposteconnumero, ordinecasuale, punti, testo) VALUES ('Domanda 6', false, true, 2.00, 'Data l''istruzione CRETE INDEX i1 ON spese(nome, cognome), dove entrambi nome e cognome hanno dominio VARCHAR(80), selezionare qual è l''alternativa corretta.');
+
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, 'i1 è un indice che può essere usato per risolvere selezioni del tipo nome > espressione1 OR cognome > espressione2 in qualsiasi tipo di base di dati.', 'Domanda 6');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 1.0000, 'i1 è un indice che può essere usato per risolvere selezioni del tipo nome = espressione1 AND cognome = espressione2 in qualsiasi tipo di base di dati.', 'Domanda 6');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.5000, 'i1 è un indice che può essere usato per risolvere selezioni del tipo nome = espressione1 AND cognome = espressione2 in basi di dati con locale uguale a C.', 'Domanda 6');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.5000, 'i1 è un indice che può essere usato per risolvere selezioni del tipo nome = espressione1, cognome = espressione2 in qualsiasi combinazione in qualsiasi tipo di base di dati.', 'Domanda 6');
+
+-- domanda 7
+INSERT INTO domanda (nome, risposteconnumero, ordinecasuale, punti, testo) VALUES ('Domanda 7', false, true, 2.00, 'Si consideri la seguente dichiarazione PostgreSQL:\n(CREATE Query 1)\nSi vuole garantire che i due valori numerici siano non negativi e che il loro prodotto sia inferiore a 1E7.\nIndicare qual è l''alternativa corretta. ');
+
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 1.0000, 'ALTER TABLE A ADD CONSTRAINT nonneg_check CHECK (prezzoUnitario >= 0 AND quantita >= 0);', 'Domanda 7');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.5000, 'ALTER TABLE A ADD CONSTRAINT nonneg_check CHECK (prezzoUnitario * quantita >= 0);', 'Domanda 7');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, 'ALTER TABLE A ADD CONSTRAINT CHECK (prezzoUnitario >= 0 AND quantita >= 0);', 'Domanda 7');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, 'Nessuna delle precedenti è corretta.', 'Domanda 7');
+
+-- domanda 8
+INSERT INTO domanda (nome, risposteconnumero, ordinecasuale, punti, testo) VALUES ('Domanda 8', false, true, 2.00, 'In PostgreSQL, data la dichiarazione\nimporto NUMERIC(5, 2)\ncosa succede se si assegna il valore 101.101 a importo?');
+
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, 'Si verifica un errore perché il numero totale di cifre è 6 mentre importo può avere max 5 cifre in totale.', 'Domanda 8');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 1.0000, 'importo assume il valore 101.11', 'Domanda 8');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, 'Il sistema chiede come arrotondare all''utente, perché il valore deve essere esatto e non lo può inferire in autonomia.', 'Domanda 8');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.5000, 'importo assume il valore 101.10', 'Domanda 8');
+
+-- domanda 9
+INSERT INTO domanda (nome, risposteconnumero, ordinecasuale, punti, testo) VALUES ('Domanda 9', false, true, 2.00, 'Scegliere la query più efficiente che determina i docenti che hanno insegnato per un numero totale di crediti di lezione maggiore o uguale di quello dei colleghi limitando l''analisi all''anno accademico 2010/2011. ');
+
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, '(Query 1)', 'Domanda 9');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, '(Query 2)', 'Domanda 9');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.5000, '(Query 3)', 'Domanda 9');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 1.0000, '(Query 4)', 'Domanda 9');
+
+-- domanda 10
+INSERT INTO domanda (nome, risposteconnumero, ordinecasuale, punti, testo) VALUES ('Domanda 10', false, true, 2.00, 'In PostgreSQL, date le dichiarazioni\nstato BOOLEAN, stato1 CHAR(1)\ne gli assegnamenti da fare, per esempio, in un istruzione UPDATE\nstato = ''0''\nstato1 = ''f''\nScegliere l''unica risposta che descrive correttamente le proprietà dei due attributi.');
+
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, 'Entrambi gli assegnamenti rappresentano il valore ''falso'' ma il secondo è più versatile perché può assumere il valore NULL', 'Domanda 10');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.5000, 'Entrambi gli assegnamenti richiedono lo stesso spazio in memoria.', 'Domanda 10');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, 'L''assegnamento a stato è errato perchè deve essere scritto FALSE', 'Domanda 10');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 1.0000, 'Uno rappresenta il valore falso, l''altro il carattere ''f''', 'Domanda 10');
+
+-- domanda 11
+INSERT INTO domanda (nome, risposteconnumero, ordinecasuale, punti, testo) VALUES ('Domanda 11', false, true, 2.00, 'Indicare la dichiarazione corretta che permetta di rappresentare una chiave non primaria (nome, cognome) ');
+
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.5000, 'nome VARCHAR,\ncognome VARCHAR,\nUNIQUE (nome, cognome)', 'Domanda 11');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, 'nome VARCHAR,\ncognome VARCHAR,\nPRIMARY KEY (nome, cognome)', 'Domanda 11');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, 'nome VARCHAR,\ncognome VARCHAR,\nUNIQUE (nome, cognome),\nNOT NULL (nome, cognome)', 'Domanda 11');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, 'nome VARCHAR,\ncognome VARCHAR,\nUNIQUE (nome, cognome),\nNOT NULL (nome, cognome)', 'Domanda 11');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 1.0000, 'nome VARCHAR NOT NULL,\ncognome VARCHAR NOT NULL,\nUNIQUE (nome, cognome)', 'Domanda 11');
+
+-- domanda 12
+INSERT INTO domanda (nome, risposteconnumero, ordinecasuale, punti, testo) VALUES ('Domanda 12', false, true, 2.00, 'Si assume che ci siano le tabelle A e B così costituite in una base di dati di tipo PostgreSQL:\n(Tabella A)\n\n(Tabella B)\nSi consideri quindi la seguente query\nselect a\nfrom A\nwhere a > any (\n\tselect * from B\n);\nIndicare la risposta corretta.');
+
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, 'Si genera un errore perché la sotto query deve essere scritta come SELECT b FROM B', 'Domanda 12');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.5000, 'La query ritorna una tabella di una riga con valore null', 'Domanda 12');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 0.0000, 'La query ritorna una tabella di 2 righe, ciascuna con valore null', 'Domanda 12');
+INSERT INTO risposta ( punteggio, testo, domanda) VALUES ( 1.0000, 'La query ritorna una tabella vuota (nessuna riga)', 'Domanda 12');
+
+INSERT INTO intest (datatest, nometest, domanda) VALUES ('2020-07-07 09:00:00', 'Basi di Dati - II appello laboratorio', 'Domanda 1');
+INSERT INTO intest (datatest, nometest, domanda) VALUES ('2020-07-07 09:00:00', 'Basi di Dati - II appello laboratorio', 'Domanda 2');
+INSERT INTO intest (datatest, nometest, domanda) VALUES ('2020-07-07 09:00:00', 'Basi di Dati - II appello laboratorio', 'Domanda 3');
+INSERT INTO intest (datatest, nometest, domanda) VALUES ('2020-07-07 09:00:00', 'Basi di Dati - II appello laboratorio', 'Domanda 4');
+INSERT INTO intest (datatest, nometest, domanda) VALUES ('2020-07-07 09:00:00', 'Basi di Dati - II appello laboratorio', 'Domanda 5');
+INSERT INTO intest (datatest, nometest, domanda) VALUES ('2020-07-07 09:00:00', 'Basi di Dati - II appello laboratorio', 'Domanda 6');
+INSERT INTO intest (datatest, nometest, domanda) VALUES ('2020-07-07 09:00:00', 'Basi di Dati - II appello laboratorio', 'Domanda 7');
+INSERT INTO intest (datatest, nometest, domanda) VALUES ('2020-07-07 09:00:00', 'Basi di Dati - II appello laboratorio', 'Domanda 8');
+INSERT INTO intest (datatest, nometest, domanda) VALUES ('2020-07-07 09:00:00', 'Basi di Dati - II appello laboratorio', 'Domanda 9');
+INSERT INTO intest (datatest, nometest, domanda) VALUES ('2020-07-07 09:00:00', 'Basi di Dati - II appello laboratorio', 'Domanda 10');
+INSERT INTO intest (datatest, nometest, domanda) VALUES ('2020-07-07 09:00:00', 'Basi di Dati - II appello laboratorio', 'Domanda 11');
+INSERT INTO intest (datatest, nometest, domanda) VALUES ('2020-07-07 09:00:00', 'Basi di Dati - II appello laboratorio', 'Domanda 12');
