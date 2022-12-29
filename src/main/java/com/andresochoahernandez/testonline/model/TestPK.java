@@ -1,22 +1,18 @@
-package com.andresochoahernandez.testonline.jpaentities;
+package com.andresochoahernandez.testonline.model;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class TestEntityPK implements Serializable {
+public class TestPK implements Serializable {
     @Column(name = "data", nullable = false)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Timestamp data;
-    @Column(name = "nome", nullable = false, length = -1)
+    @Column(name = "nome", nullable = false , columnDefinition = "varchar")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String nome;
 
     public Timestamp getData() {
@@ -38,13 +34,12 @@ public class TestEntityPK implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TestEntityPK that = (TestEntityPK) o;
-        return Objects.equals(data, that.data) && Objects.equals(nome, that.nome);
+        if (!(o instanceof TestPK testPK)) return false;
+        return getData().equals(testPK.getData()) && getNome().equals(testPK.getNome());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(data, nome);
+        return Objects.hash(getData(), getNome());
     }
 }
