@@ -23,6 +23,16 @@ public class Domanda {
     @Column(name = "risposteconnumero" , columnDefinition = "boolean default false")
     private boolean risposteConNumero = false;
 
+    public Domanda(){}
+
+    public Domanda(String nome, String testo, BigDecimal punti, boolean ordineCasuale, boolean risposteConNumero) {
+        this.nome = nome;
+        this.testo = testo;
+        this.punti = punti;
+        this.ordineCasuale = ordineCasuale;
+        this.risposteConNumero = risposteConNumero;
+    }
+
     public String getNome() {
         return nome;
     }

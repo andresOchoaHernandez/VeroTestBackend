@@ -15,6 +15,13 @@ public class TestPK implements Serializable {
     @Id
     private String nome;
 
+    public TestPK(){}
+
+    public TestPK(Timestamp data, String nome) {
+        this.data = data;
+        this.nome = nome;
+    }
+
     public Timestamp getData() {
         return data;
     }

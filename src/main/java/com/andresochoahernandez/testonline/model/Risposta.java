@@ -22,6 +22,14 @@ public class Risposta {
     @JoinColumn(name = "domanda", referencedColumnName = "nome")
     private Domanda domanda;
 
+    public Risposta(){}
+
+    public Risposta(String testo, BigDecimal punteggio, Domanda domanda) {
+        this.testo = testo;
+        this.punteggio = punteggio;
+        this.domanda = domanda;
+    }
+
     public long getId() {
         return id;
     }

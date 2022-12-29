@@ -19,6 +19,13 @@ public class InTest {
     @JoinColumns({@JoinColumn(name = "datatest", referencedColumnName = "data", nullable = false), @JoinColumn(name = "nometest", referencedColumnName = "nome", nullable = false)})
     private Test test;
 
+    public InTest(){}
+
+    public InTest(Domanda domanda, Test test) {
+        this.domanda = domanda;
+        this.test = test;
+    }
+
     public int getId() {
         return id;
     }

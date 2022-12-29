@@ -21,6 +21,15 @@ public class Test {
     @Column(name = "domandeconnumero" , columnDefinition = "boolean default false")
     private boolean domandeConNumero = false;
 
+    public Test(){}
+
+    public Test(Timestamp data, String nome, boolean ordineCasuale, boolean domandeConNumero) {
+        this.data = data;
+        this.nome = nome;
+        this.ordineCasuale = ordineCasuale;
+        this.domandeConNumero = domandeConNumero;
+    }
+
     public Timestamp getData() {
         return data;
     }
