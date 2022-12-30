@@ -2,6 +2,18 @@ type Query
 {
     """ TEST QUERIES """
     allTest : [test]
+    testByDateAndName(data:String!,nome:String!): test
+    testByDate(data:String!): [test]
+    testByName(nome:String!): [test]
+
+    """ DOMANDA QUERIES """
+    allDomanda : [domanda]
+
+    """ RISPOSTA QUERIES """
+    allRisposta : [risposta]
+
+    """ INTEST QUERIES """
+    allInTest : [intest]
 }
 
 type test

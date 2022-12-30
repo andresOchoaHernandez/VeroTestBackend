@@ -30,7 +30,7 @@ public class Risposta {
         this.domanda = domanda;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -38,6 +38,13 @@ public class Risposta {
         this.id = id;
     }
 
+    public Domanda getDomanda() {
+        return domanda;
+    }
+
+    public void setDomanda(Domanda domanda) {
+        this.domanda = domanda;
+    }
 
     public String getTesto() {
         return testo;
