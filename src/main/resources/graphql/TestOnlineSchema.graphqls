@@ -1,0 +1,38 @@
+type Query
+{
+    """ TEST QUERIES """
+    allTest : [test]
+}
+
+type test
+{
+    data:             String!
+    nome:             String!
+    ordineCasuale:    Boolean
+    domandeConNumero: Boolean
+}
+
+type domanda
+{
+    nome :            String!
+    testo:            String!
+    punti:            Float
+    ordineCasuale:    Boolean
+    risposteConNumero:Boolean
+}
+
+type risposta
+{
+    id :              ID!
+    testo:            String!
+    punteggio:        Float
+    domanda:          String!
+}
+
+type intest
+{
+    id:              ID!
+    domanda:         String!
+    dataTest:        String!
+    nomeTest:        String!
+}
