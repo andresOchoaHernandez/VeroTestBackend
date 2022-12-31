@@ -48,7 +48,8 @@ public class TestOnlineController {
     @QueryMapping
     public TestSchema testByDateAndName(@Argument String data,@Argument String nome)
     {
-        //TODO : Handle the correctness of the input
+        //TODO : Handle the correctness of the input, handle the fact that an exam
+        //       can occur in the same day at different hours (example turn 1, turn 2 etc...)
         Optional<Test> result = test.findById(new TestPK(Timestamp.valueOf(data),nome));
         return result.isEmpty()?null:new TestSchema(result.get());
     }
@@ -56,15 +57,31 @@ public class TestOnlineController {
     @QueryMapping
     public List<TestSchema> testByDate(@Argument String data)
     {
-        //TODO:
-        return null;
+        List<Test> tests = test.getTestByDate(data);
+
+        List<TestSchema> response = new LinkedList<>();
+
+        for(Test curr : tests)
+        {
+            response.add(new TestSchema(curr));
+        }
+
+        return response;
     }
 
     @QueryMapping
     public List<TestSchema> testByName(@Argument String nome)
     {
-        //TODO:
-        return null;
+        List<Test> tests = test.getTestByName(nome);
+
+        List<TestSchema> response = new LinkedList<>();
+
+        for(Test curr : tests)
+        {
+            response.add(new TestSchema(curr));
+        }
+
+        return response;
     }
 
     @QueryMapping
@@ -82,12 +99,42 @@ public class TestOnlineController {
     }
 
     @QueryMapping
+    public DomandaSchema domandaByNome(@Argument String nome)
+    {
+        Optional<Domanda> result = domanda.findById(nome);
+
+        return result.isEmpty()?null : new DomandaSchema(result.get());
+    }
+
+    @QueryMapping
+    public List<DomandaSchema> allDomandaByTest(@Argument String data, @Argument String hour, @Argument String nome)
+    {
+        //TODO:
+        return null;
+    }
+
+    @QueryMapping
     public List<RispostaSchema> allRisposta()
     {
         List<Risposta> allRisposte = risposta.findAll();
         List<RispostaSchema> response = new LinkedList<>();
 
         for(Risposta curr : allRisposte)
+        {
+            response.add(new RispostaSchema(curr));
+        }
+
+        return response;
+    }
+
+    @QueryMapping
+    public List<RispostaSchema> allRispostaOfDomanda(@Argument String domanda)
+    {
+        List<Risposta> risposte = risposta.getRisposteOfDomanda(domanda);
+
+        List<RispostaSchema> response = new LinkedList<>();
+
+        for(Risposta curr : risposte)
         {
             response.add(new RispostaSchema(curr));
         }

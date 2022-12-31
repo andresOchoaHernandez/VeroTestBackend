@@ -8,9 +8,12 @@ type Query
 
     """ DOMANDA QUERIES """
     allDomanda : [domanda]
+    allDomandaByTest(data:String!,hour:String!,nome:String!): [domanda]
+    domandaByNome(nome:String!): domanda
 
     """ RISPOSTA QUERIES """
     allRisposta : [risposta]
+    allRispostaOfDomanda(domanda:String!): [risposta]
 
     """ INTEST QUERIES """
     allInTest : [intest]
