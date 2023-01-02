@@ -2,7 +2,8 @@ type Query
 {
     """ TEST QUERIES """
     allTest : [test]
-    testByDateAndName(data:String!,nome:String!): test
+    testByDateHourAndName(data:String!,hour:String!,nome:String!): test
+    testByDateAndName(data:String!,nome:String!): [test]
     testByDate(data:String!): [test]
     testByName(nome:String!): [test]
 

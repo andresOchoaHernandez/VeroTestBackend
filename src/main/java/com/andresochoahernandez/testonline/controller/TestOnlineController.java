@@ -31,6 +31,8 @@ public class TestOnlineController {
         this.domanda = domanda;
     }
 
+    /* =================== TEST QUERIES IMPLEMENTATION =================== */
+
     @QueryMapping
     public List<TestSchema> allTest()
     {
@@ -46,12 +48,33 @@ public class TestOnlineController {
     }
 
     @QueryMapping
-    public TestSchema testByDateAndName(@Argument String data,@Argument String nome)
+    public TestSchema testByDateHourAndName(@Argument String data,@Argument String hour,@Argument String nome)
     {
-        //TODO : Handle the correctness of the input, handle the fact that an exam
-        //       can occur in the same day at different hours (example turn 1, turn 2 etc...)
-        Optional<Test> result = test.findById(new TestPK(Timestamp.valueOf(data),nome));
-        return result.isEmpty()?null:new TestSchema(result.get());
+        try
+        {
+            Timestamp timestamp = Timestamp.valueOf(data + " " + hour + ":00");
+            Optional<Test> result = test.findById(new TestPK(timestamp,nome));
+            return result.isEmpty()?null:new TestSchema(result.get());
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
+    }
+
+    @QueryMapping
+    public List<TestSchema> testByDateAndName(@Argument String data,@Argument String nome)
+    {
+        List<Test> tests = test.getTestByDateAndName(data,nome);
+
+        List<TestSchema> response = new LinkedList<>();
+
+        for(Test curr : tests)
+        {
+            response.add(new TestSchema(curr));
+        }
+
+        return response;
     }
 
     @QueryMapping
@@ -84,6 +107,8 @@ public class TestOnlineController {
         return response;
     }
 
+    /* =================== DOMANDE QUERIES IMPLEMENTATION =================== */
+
     @QueryMapping
     public List<DomandaSchema> allDomanda()
     {
@@ -109,9 +134,18 @@ public class TestOnlineController {
     @QueryMapping
     public List<DomandaSchema> allDomandaByTest(@Argument String data, @Argument String hour, @Argument String nome)
     {
-        //TODO:
-        return null;
+        List<Domanda> domandeOfTest = domanda.getDomandeOfTest(data + " " + hour + ":00",nome);
+        List<DomandaSchema> response = new LinkedList<>();
+
+        for(Domanda curr : domandeOfTest)
+        {
+            response.add(new DomandaSchema(curr));
+        }
+
+        return response;
     }
+
+    /* =================== RISPOSTE QUERIES IMPLEMENTATION =================== */
 
     @QueryMapping
     public List<RispostaSchema> allRisposta()
@@ -141,6 +175,8 @@ public class TestOnlineController {
 
         return response;
     }
+
+    /* =================== INTEST QUERIES IMPLEMENTATION =================== */
 
     @QueryMapping
     public List<InTestSchema> allInTest()

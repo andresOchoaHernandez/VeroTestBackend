@@ -9,6 +9,10 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface TestRepository extends JpaRepository<Test,TestPK> {
+
+    @Query("SELECT t FROM Test t WHERE date(t.data) = date(:date) AND t.nome = :name")
+    List<Test> getTestByDateAndName(@Param(value = "date")String date ,@Param(value = "name") String name);
+
     @Query("SELECT t FROM Test t WHERE date(t.data) = date(:date)")
     List<Test> getTestByDate(@Param(value = "date") String date);
 
