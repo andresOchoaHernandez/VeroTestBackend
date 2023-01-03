@@ -8,16 +8,24 @@ type Query
     testByName(nome:String!): [test]
 
     """ DOMANDA QUERIES """
-    allDomanda : [domanda]
+    allDomanda : [domanda] # to be deleted
     allDomandaByTest(data:String!,hour:String!,nome:String!): [domanda]
     domandaByNome(nome:String!): domanda
 
     """ RISPOSTA QUERIES """
-    allRisposta : [risposta]
+    allRisposta : [risposta] # to be deleted
     allRispostaOfDomanda(domanda:String!): [risposta]
 
     """ INTEST QUERIES """
-    allInTest : [intest]
+    allInTest : [intest] # to be deleted
+}
+
+type Mutation
+{
+    createTest(data:String!,nome:String!,ordineCasuale:Boolean,domandeConNumero:Boolean!):test
+    createDomanda(nome:String!,testo:String!,punti:Float!,ordineCasuale:Boolean,risposteConNumero:Boolean):domanda
+    createRisposta(testo:String!,punteggio:Float!,domanda:String!):risposta
+    connectDomandaToTest(domanda:String!,dataTest:String!,nomeTest:String!):intest
 }
 
 type test
