@@ -22,10 +22,12 @@ type Query
 
 type Mutation
 {
-    createTest(data:String!,nome:String!,ordineCasuale:Boolean,domandeConNumero:Boolean!):test
-    createDomanda(nome:String!,testo:String!,punti:Float!,ordineCasuale:Boolean,risposteConNumero:Boolean):domanda
-    createRisposta(testo:String!,punteggio:Float!,domanda:String!):risposta
-    connectDomandaToTest(domanda:String!,dataTest:String!,nomeTest:String!):intest
+    createTest(input:testInput):test
+    createDomanda(input:domandaInput):domanda
+    createRisposta(input:rispostaInput):risposta
+    connectDomandaToTest(input:intestInput):intest
+
+    # WHAT ABOUT UPDATES?
 }
 
 type test
@@ -54,6 +56,39 @@ type risposta
 }
 
 type intest
+{
+    id:              ID!
+    domanda:         String!
+    dataTest:        String!
+    nomeTest:        String!
+}
+
+input testInput
+{
+    data:             String!
+    nome:             String!
+    ordineCasuale:    Boolean
+    domandeConNumero: Boolean
+}
+
+input domandaInput
+{
+    nome :            String!
+    testo:            String!
+    punti:            Float
+    ordineCasuale:    Boolean
+    risposteConNumero:Boolean
+}
+
+input rispostaInput
+{
+    id :              ID!
+    testo:            String!
+    punteggio:        Float
+    domanda:          String!
+}
+
+input intestInput
 {
     id:              ID!
     domanda:         String!
