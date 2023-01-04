@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface DomandaRepository extends JpaRepository<Domanda,String> {
 
-    @Query("SELECT d FROM InTest it JOIN Domanda d ON it.domanda.nome = d.nome WHERE it.test.data = to_timestamp(:testTimeStamp,'YYYY-MM-DD HH:MI:SS') AND it.test.nome = :nome")
+    @Query("SELECT d FROM InTest it JOIN Domanda d ON it.domanda.nome = d.nome WHERE it.test.data = to_timestamp(:testTimeStamp,'YYYY-MM-DD HH24:MI:SS') AND it.test.nome = :nome")
     List<Domanda> getDomandeOfTest(@Param(value = "testTimeStamp") String testTimeStamp, @Param(value = "nome") String nome);
 }

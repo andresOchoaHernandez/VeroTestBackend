@@ -10,12 +10,14 @@ public class InTestType {
     private int id;
     private String domanda;
     private String dataTest;
+    private String oraTest;
     private String nomeTest;
 
-    public InTestType(int id, String domanda, String dataTest, String nomeTest) {
+    public InTestType(int id, String domanda, String dataTest,String oraTest, String nomeTest) {
     this.id = id;
     this.domanda = domanda;
     this.dataTest = dataTest;
+    this.oraTest = oraTest;
     this.nomeTest = nomeTest;
     }
 
@@ -23,7 +25,8 @@ public class InTestType {
     {
         this.id = inTest.getId();
         this.domanda = inTest.getDomanda().getNome();
-        this.dataTest = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(inTest.getTest().getData());
+        this.dataTest = new SimpleDateFormat("yyyy-MM-dd").format(inTest.getTest().getData());
+        this.oraTest = new SimpleDateFormat("HH:mm").format(inTest.getTest().getData());
         this.nomeTest = inTest.getTest().getNome();
     }
 }

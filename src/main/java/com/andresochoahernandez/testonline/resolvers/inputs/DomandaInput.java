@@ -1,6 +1,8 @@
 package com.andresochoahernandez.testonline.resolvers.inputs;
 
 import com.andresochoahernandez.testonline.model.Domanda;
+import com.andresochoahernandez.testonline.resolvers.types.DomandaType;
+import com.andresochoahernandez.testonline.resolvers.types.TestType;
 
 import java.math.BigDecimal;
 
@@ -28,5 +30,25 @@ public class DomandaInput {
                 this.ordineCasuale,
                 this.risposteConNumero
         );
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getTesto() {
+        return testo;
+    }
+
+    public Float getPunti() {
+        return punti;
+    }
+
+    public boolean isOrdineCasuale() {
+        return ordineCasuale;
+    }
+
+    public boolean isRisposteConNumero() {
+        return risposteConNumero;
     }
 }

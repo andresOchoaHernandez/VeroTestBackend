@@ -3,19 +3,21 @@ package com.andresochoahernandez.testonline.resolvers.inputs;
 import com.andresochoahernandez.testonline.model.Domanda;
 import com.andresochoahernandez.testonline.model.InTest;
 import com.andresochoahernandez.testonline.model.Test;
+import com.andresochoahernandez.testonline.resolvers.types.DomandaType;
+import com.andresochoahernandez.testonline.resolvers.types.InTestType;
 
 import java.text.SimpleDateFormat;
 
 public class InTestInput {
-    private int id;
     private String domanda;
     private String dataTest;
+    private String oraTest;
     private String nomeTest;
 
-    public InTestInput(int id, String domanda, String dataTest, String nomeTest) {
-        this.id = id;
+    public InTestInput(String domanda, String dataTest, String oraTest,String nomeTest) {
         this.domanda = domanda;
         this.dataTest = dataTest;
+        this.oraTest = oraTest;
         this.nomeTest = nomeTest;
     }
 
@@ -25,5 +27,21 @@ public class InTestInput {
                 domanda,
                 test
         );
+    }
+
+    public String getDomanda() {
+        return domanda;
+    }
+
+    public String getDataTest() {
+        return dataTest;
+    }
+
+    public String getOraTest() {
+        return oraTest;
+    }
+
+    public String getNomeTest() {
+        return nomeTest;
     }
 }

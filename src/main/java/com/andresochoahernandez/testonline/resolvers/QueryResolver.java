@@ -19,6 +19,8 @@ import com.andresochoahernandez.testonline.resolvers.types.*;
 @Controller
 public class QueryResolver {
 
+    //TODO: handle not found elements in a better way
+
     private final TestRepository test;
     private final RispostaRespository risposta;
     private final InTestRepository intest;
@@ -31,8 +33,6 @@ public class QueryResolver {
         this.intest = intest;
         this.domanda = domanda;
     }
-
-    /* =================== TEST QUERIES IMPLEMENTATION =================== */
 
     @QueryMapping
     public List<TestType> allTest()
@@ -108,8 +108,6 @@ public class QueryResolver {
         return response;
     }
 
-    /* =================== DOMANDE QUERIES IMPLEMENTATION =================== */
-
     @QueryMapping
     public List<DomandaType> allDomanda()
     {
@@ -146,8 +144,6 @@ public class QueryResolver {
         return response;
     }
 
-    /* =================== RISPOSTE QUERIES IMPLEMENTATION =================== */
-
     @QueryMapping
     public List<RispostaType> allRisposta()
     {
@@ -177,7 +173,6 @@ public class QueryResolver {
         return response;
     }
 
-    /* =================== INTEST QUERIES IMPLEMENTATION =================== */
     @QueryMapping
     public List<InTestType> allInTest()
     {

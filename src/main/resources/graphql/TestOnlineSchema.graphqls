@@ -8,31 +8,31 @@ type Query
     testByName(nome:String!): [test]
 
     """ DOMANDA QUERIES """
-    allDomanda : [domanda] # to be deleted
+    allDomanda : [domanda] # TODO:to be deleted
     allDomandaByTest(data:String!,hour:String!,nome:String!): [domanda]
     domandaByNome(nome:String!): domanda
 
     """ RISPOSTA QUERIES """
-    allRisposta : [risposta] # to be deleted
+    allRisposta : [risposta] # TODO:to be deleted
     allRispostaOfDomanda(domanda:String!): [risposta]
 
     """ INTEST QUERIES """
-    allInTest : [intest] # to be deleted
+    allInTest : [intest] # TODO:to be deleted
 }
 
 type Mutation
 {
-    createTest(input:testInput):test
-    createDomanda(input:domandaInput):domanda
-    createRisposta(input:rispostaInput):risposta
-    connectDomandaToTest(input:intestInput):intest
-
-    # WHAT ABOUT UPDATES?
+    createTest(input:testInput):Boolean
+    createDomanda(input:domandaInput):Boolean
+    createRisposta(input:rispostaInput):Boolean
+    connectDomandaToTest(input:intestInput):Boolean
+    # TODO: WHAT ABOUT UPDATES?
 }
 
 type test
 {
     data:             String!
+    ora:              String!
     nome:             String!
     ordineCasuale:    Boolean
     domandeConNumero: Boolean
@@ -60,12 +60,14 @@ type intest
     id:              ID!
     domanda:         String!
     dataTest:        String!
+    oraTest:         String!
     nomeTest:        String!
 }
 
 input testInput
 {
     data:             String!
+    ora:              String!
     nome:             String!
     ordineCasuale:    Boolean
     domandeConNumero: Boolean
@@ -82,7 +84,6 @@ input domandaInput
 
 input rispostaInput
 {
-    id :              ID!
     testo:            String!
     punteggio:        Float
     domanda:          String!
@@ -90,8 +91,8 @@ input rispostaInput
 
 input intestInput
 {
-    id:              ID!
     domanda:         String!
     dataTest:        String!
+    oraTest:         String!
     nomeTest:        String!
 }

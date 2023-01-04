@@ -10,5 +10,5 @@ import java.util.List;
 public interface RispostaRespository extends JpaRepository<Risposta,Integer> {
 
     @Query("SELECT r FROM Risposta r WHERE r.domanda.nome = :domanda")
-    public List<Risposta> getRisposteOfDomanda(@Param(value = "domanda")String domanda);
+    List<Risposta> getRisposteOfDomanda(@Param(value = "domanda")String domanda);
 }
