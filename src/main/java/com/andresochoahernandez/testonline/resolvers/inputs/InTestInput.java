@@ -3,10 +3,6 @@ package com.andresochoahernandez.testonline.resolvers.inputs;
 import com.andresochoahernandez.testonline.model.Domanda;
 import com.andresochoahernandez.testonline.model.InTest;
 import com.andresochoahernandez.testonline.model.Test;
-import com.andresochoahernandez.testonline.resolvers.types.DomandaType;
-import com.andresochoahernandez.testonline.resolvers.types.InTestType;
-
-import java.text.SimpleDateFormat;
 
 public class InTestInput {
     private String domanda;

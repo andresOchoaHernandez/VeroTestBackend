@@ -13,6 +13,7 @@ import com.andresochoahernandez.testonline.resolvers.inputs.RispostaInput;
 import com.andresochoahernandez.testonline.resolvers.inputs.TestInput;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import java.sql.Timestamp;
@@ -36,6 +37,7 @@ public class MutationResolver {
         this.domanda = domanda;
     }
 
+    @PreAuthorize("hasRole('DOCENTE')")
     @MutationMapping
     public boolean createTest(@Argument TestInput input){
         try{
@@ -47,6 +49,7 @@ public class MutationResolver {
         }
     }
 
+    @PreAuthorize("hasRole('DOCENTE')")
     @MutationMapping
     public boolean createDomanda(@Argument DomandaInput input){
         try{
@@ -57,6 +60,7 @@ public class MutationResolver {
         }
     }
 
+    @PreAuthorize("hasRole('DOCENTE')")
     @MutationMapping
     public boolean createRisposta(@Argument RispostaInput input){
         try{
@@ -69,6 +73,7 @@ public class MutationResolver {
         }
     }
 
+    @PreAuthorize("hasRole('DOCENTE')")
     @MutationMapping
     public boolean connectDomandaToTest(@Argument InTestInput input){
         try{

@@ -27,4 +27,44 @@ public class DomandaType {
         this.ordineCasuale = domanda.isOrdineCasuale();
         this.risposteConNumero = domanda.isRisposteConNumero();
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getTesto() {
+        return testo;
+    }
+
+    public void setTesto(String testo) {
+        this.testo = testo;
+    }
+
+    public Float getPunti() {
+        return punti;
+    }
+
+    public void setPunti(Float punti) {
+        this.punti = punti;
+    }
+
+    public boolean isOrdineCasuale() {
+        return ordineCasuale;
+    }
+
+    public void setOrdineCasuale(boolean ordineCasuale) {
+        this.ordineCasuale = ordineCasuale;
+    }
+
+    public boolean isRisposteConNumero() {
+        return risposteConNumero;
+    }
+
+    public void setRisposteConNumero(boolean risposteConNumero) {
+        this.risposteConNumero = risposteConNumero;
+    }
 }

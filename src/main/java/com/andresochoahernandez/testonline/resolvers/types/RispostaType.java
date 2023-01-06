@@ -25,4 +25,9 @@ public class RispostaType {
         this.punteggio = risposta.getPunteggio().floatValue();
         this.domanda = risposta.getDomanda().getNome();
     }
+
+    public void restrict()
+    {
+        this.punteggio = null;
+    }
 }

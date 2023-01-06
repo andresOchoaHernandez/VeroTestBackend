@@ -8,16 +8,11 @@ type Query
     testByName(nome:String!): [test]
 
     """ DOMANDA QUERIES """
-    allDomanda : [domanda] # TODO:to be deleted
     allDomandaByTest(data:String!,hour:String!,nome:String!): [domanda]
     domandaByNome(nome:String!): domanda
 
     """ RISPOSTA QUERIES """
-    allRisposta : [risposta] # TODO:to be deleted
     allRispostaOfDomanda(domanda:String!): [risposta]
-
-    """ INTEST QUERIES """
-    allInTest : [intest] # TODO:to be deleted
 }
 
 type Mutation
@@ -53,15 +48,6 @@ type risposta
     testo:            String!
     punteggio:        Float
     domanda:          String!
-}
-
-type intest
-{
-    id:              ID!
-    domanda:         String!
-    dataTest:        String!
-    oraTest:         String!
-    nomeTest:        String!
 }
 
 input testInput

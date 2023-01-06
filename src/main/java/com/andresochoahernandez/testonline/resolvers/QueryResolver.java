@@ -7,8 +7,11 @@ import com.andresochoahernandez.testonline.repository.RispostaRespository;
 import com.andresochoahernandez.testonline.repository.TestRepository;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +37,7 @@ public class QueryResolver {
         this.domanda = domanda;
     }
 
+    @PreAuthorize("hasRole('DOCENTE')")
     @QueryMapping
     public List<TestType> allTest()
     {
@@ -48,6 +52,7 @@ public class QueryResolver {
         return response;
     }
 
+    @PreAuthorize("hasAnyRole('DOCENTE','STUDENTE')")
     @QueryMapping
     public TestType testByDateHourAndName(@Argument String data, @Argument String hour, @Argument String nome)
     {
@@ -63,6 +68,7 @@ public class QueryResolver {
         }
     }
 
+    @PreAuthorize("hasAnyRole('DOCENTE','STUDENTE')")
     @QueryMapping
     public List<TestType> testByDateAndName(@Argument String data, @Argument String nome)
     {
@@ -78,6 +84,7 @@ public class QueryResolver {
         return response;
     }
 
+    @PreAuthorize("hasAnyRole('DOCENTE','STUDENTE')")
     @QueryMapping
     public List<TestType> testByDate(@Argument String data)
     {
@@ -93,6 +100,7 @@ public class QueryResolver {
         return response;
     }
 
+    @PreAuthorize("hasAnyRole('DOCENTE','STUDENTE')")
     @QueryMapping
     public List<TestType> testByName(@Argument String nome)
     {
@@ -108,28 +116,15 @@ public class QueryResolver {
         return response;
     }
 
-    @QueryMapping
-    public List<DomandaType> allDomanda()
-    {
-        List<Domanda> allDomande = domanda.findAll();
-        List<DomandaType> response = new LinkedList<>();
-
-        for(Domanda curr : allDomande)
-        {
-            response.add(new DomandaType(curr));
-        }
-
-        return response;
-    }
-
+    @PreAuthorize("hasAnyRole('DOCENTE','STUDENTE')")
     @QueryMapping
     public DomandaType domandaByNome(@Argument String nome)
     {
         Optional<Domanda> result = domanda.findById(nome);
-
         return result.isEmpty()?null : new DomandaType(result.get());
     }
 
+    @PreAuthorize("hasAnyRole('DOCENTE','STUDENTE')")
     @QueryMapping
     public List<DomandaType> allDomandaByTest(@Argument String data, @Argument String hour, @Argument String nome)
     {
@@ -144,44 +139,20 @@ public class QueryResolver {
         return response;
     }
 
+    @PreAuthorize("hasAnyRole('DOCENTE','STUDENTE')")
     @QueryMapping
-    public List<RispostaType> allRisposta()
+    public List<RispostaType> allRispostaOfDomanda(@Argument String domanda,Authentication auth)
     {
-        List<Risposta> allRisposte = risposta.findAll();
-        List<RispostaType> response = new LinkedList<>();
+        boolean canSeeAnswerPoints = auth.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_DOCENTE"))?true:false;
 
-        for(Risposta curr : allRisposte)
-        {
-            response.add(new RispostaType(curr));
-        }
-
-        return response;
-    }
-
-    @QueryMapping
-    public List<RispostaType> allRispostaOfDomanda(@Argument String domanda)
-    {
         List<Risposta> risposte = risposta.getRisposteOfDomanda(domanda);
-
         List<RispostaType> response = new LinkedList<>();
 
         for(Risposta curr : risposte)
         {
-            response.add(new RispostaType(curr));
-        }
-
-        return response;
-    }
-
-    @QueryMapping
-    public List<InTestType> allInTest()
-    {
-        List<InTest> allInTests = intest.findAll();
-        List<InTestType> response = new LinkedList<>();
-
-        for(InTest curr : allInTests)
-        {
-            response.add(new InTestType(curr));
+            RispostaType currType = new RispostaType(curr);
+            if(!canSeeAnswerPoints) currType.restrict();
+            response.add(currType);
         }
 
         return response;
