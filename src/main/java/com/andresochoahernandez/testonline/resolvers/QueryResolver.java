@@ -143,7 +143,7 @@ public class QueryResolver {
     @QueryMapping
     public List<RispostaType> allRispostaOfDomanda(@Argument String domanda,Authentication auth)
     {
-        boolean canSeeAnswerPoints = auth.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_DOCENTE"))?true:false;
+        boolean canSeeAnswerPoints = auth.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_DOCENTE"));
 
         List<Risposta> risposte = risposta.getRisposteOfDomanda(domanda);
         List<RispostaType> response = new LinkedList<>();

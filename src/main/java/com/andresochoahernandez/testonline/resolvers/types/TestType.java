@@ -7,11 +7,11 @@ import java.text.SimpleDateFormat;
 
 public class TestType
 {
-    private String data;
-    private String ora;
-    private String nome;
-    private boolean ordineCasuale;
-    private boolean domandeConNumero;
+    private final String data;
+    private final String ora;
+    private final String nome;
+    private final boolean ordineCasuale;
+    private final boolean domandeConNumero;
 
     public TestType(String data, String ora, String nome, boolean ordineCasuale, boolean domandeConNumero) {
         this.data = data;

@@ -7,11 +7,11 @@ import com.andresochoahernandez.testonline.resolvers.types.TestType;
 import java.math.BigDecimal;
 
 public class DomandaInput {
-    private String nome;
-    private String testo;
-    private Float punti;
-    private boolean ordineCasuale;
-    private boolean risposteConNumero;
+    private final String nome;
+    private final String testo;
+    private final Float punti;
+    private final boolean ordineCasuale;
+    private final boolean risposteConNumero;
 
     public DomandaInput(String nome, String testo, Float punti, boolean ordineCasuale, boolean risposteConNumero) {
         this.nome = nome;

@@ -8,9 +8,9 @@ import com.andresochoahernandez.testonline.resolvers.types.RispostaType;
 import java.math.BigDecimal;
 
 public class RispostaInput {
-    private String testo;
-    private Float punteggio;
-    private String domanda;
+    private final String testo;
+    private final Float punteggio;
+    private final String domanda;
 
     public RispostaInput(String testo, Float punteggio, String domanda) {
         this.testo = testo;

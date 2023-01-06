@@ -5,10 +5,10 @@ import com.andresochoahernandez.testonline.model.InTest;
 import com.andresochoahernandez.testonline.model.Test;
 
 public class InTestInput {
-    private String domanda;
-    private String dataTest;
-    private String oraTest;
-    private String nomeTest;
+    private final String domanda;
+    private final String dataTest;
+    private final String oraTest;
+    private final String nomeTest;
 
     public InTestInput(String domanda, String dataTest, String oraTest,String nomeTest) {
         this.domanda = domanda;

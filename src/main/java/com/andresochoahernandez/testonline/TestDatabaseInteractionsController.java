@@ -49,7 +49,7 @@ public class TestDatabaseInteractionsController {
     @GetMapping("/write")
     public String ExampleOfWritingAndDeletingToAndFromDatabase()
     {
-        Domanda domandaProva = new Domanda("prova nome", "prova testo" , new BigDecimal(1.0),false,true);
+        Domanda domandaProva = new Domanda("prova nome", "prova testo" , new BigDecimal("1.0"),false,true);
 
         domanda.save(domandaProva);
 

@@ -1,15 +1,12 @@
 package com.andresochoahernandez.testonline.resolvers.types;
 
-import com.andresochoahernandez.testonline.model.Domanda;
 import com.andresochoahernandez.testonline.model.Risposta;
 
-import java.math.BigDecimal;
-
 public class RispostaType {
-    private int id;
-    private String testo;
+    private final int id;
+    private final String testo;
     private Float punteggio;
-    private String domanda;
+    private final String domanda;
 
     public RispostaType(int id, String testo, Float punteggio, String domanda) {
         this.id = id;
