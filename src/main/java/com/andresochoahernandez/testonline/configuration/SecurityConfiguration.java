@@ -10,6 +10,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfiguration{
 
+    // TODO:
+    // tutorial to secure graphql api https://www.youtube.com/watch?v=PkhsQPPFgOo
+
     // TODO: secure the application, ensure the authentication of studenti and professori
 
     @Bean
