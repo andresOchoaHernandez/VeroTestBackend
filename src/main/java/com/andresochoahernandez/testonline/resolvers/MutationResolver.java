@@ -1,8 +1,8 @@
 package com.andresochoahernandez.testonline.resolvers;
 
-import com.andresochoahernandez.testonline.model.Domanda;
-import com.andresochoahernandez.testonline.model.Test;
-import com.andresochoahernandez.testonline.model.TestPK;
+import com.andresochoahernandez.testonline.model.domain.Domanda;
+import com.andresochoahernandez.testonline.model.domain.Test;
+import com.andresochoahernandez.testonline.model.domain.TestPK;
 import com.andresochoahernandez.testonline.repository.DomandaRepository;
 import com.andresochoahernandez.testonline.repository.InTestRepository;
 import com.andresochoahernandez.testonline.repository.RispostaRespository;

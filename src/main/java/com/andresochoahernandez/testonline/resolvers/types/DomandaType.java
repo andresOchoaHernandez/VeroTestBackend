@@ -1,8 +1,6 @@
 package com.andresochoahernandez.testonline.resolvers.types;
 
-import com.andresochoahernandez.testonline.model.Domanda;
-
-import java.math.BigDecimal;
+import com.andresochoahernandez.testonline.model.domain.Domanda;
 
 public class DomandaType {
     private String nome;

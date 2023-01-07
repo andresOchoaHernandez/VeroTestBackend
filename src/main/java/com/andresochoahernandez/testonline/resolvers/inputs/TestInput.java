@@ -1,10 +1,8 @@
 package com.andresochoahernandez.testonline.resolvers.inputs;
 
-import com.andresochoahernandez.testonline.model.Test;
-import com.andresochoahernandez.testonline.resolvers.types.TestType;
+import com.andresochoahernandez.testonline.model.domain.Test;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 
 public class TestInput
 {

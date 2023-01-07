@@ -1,8 +1,6 @@
 package com.andresochoahernandez.testonline.resolvers.inputs;
 
-import com.andresochoahernandez.testonline.model.Domanda;
-import com.andresochoahernandez.testonline.resolvers.types.DomandaType;
-import com.andresochoahernandez.testonline.resolvers.types.TestType;
+import com.andresochoahernandez.testonline.model.domain.Domanda;
 
 import java.math.BigDecimal;
 

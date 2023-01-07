@@ -1,8 +1,7 @@
 package com.andresochoahernandez.testonline.resolvers.types;
 
-import com.andresochoahernandez.testonline.model.Test;
+import com.andresochoahernandez.testonline.model.domain.Test;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 public class TestType

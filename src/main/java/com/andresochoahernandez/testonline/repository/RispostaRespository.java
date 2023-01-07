@@ -1,6 +1,6 @@
 package com.andresochoahernandez.testonline.repository;
 
-import com.andresochoahernandez.testonline.model.Risposta;
+import com.andresochoahernandez.testonline.model.domain.Risposta;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

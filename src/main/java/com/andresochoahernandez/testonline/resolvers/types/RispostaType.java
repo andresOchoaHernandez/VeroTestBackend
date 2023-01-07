@@ -1,6 +1,6 @@
 package com.andresochoahernandez.testonline.resolvers.types;
 
-import com.andresochoahernandez.testonline.model.Risposta;
+import com.andresochoahernandez.testonline.model.domain.Risposta;
 
 public class RispostaType {
     private final int id;

@@ -1,8 +1,8 @@
 package com.andresochoahernandez.testonline.resolvers.inputs;
 
-import com.andresochoahernandez.testonline.model.Domanda;
-import com.andresochoahernandez.testonline.model.InTest;
-import com.andresochoahernandez.testonline.model.Test;
+import com.andresochoahernandez.testonline.model.domain.Domanda;
+import com.andresochoahernandez.testonline.model.domain.InTest;
+import com.andresochoahernandez.testonline.model.domain.Test;
 
 public class InTestInput {
     private final String domanda;

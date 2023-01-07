@@ -1,6 +1,9 @@
 package com.andresochoahernandez.testonline.resolvers;
 
-import com.andresochoahernandez.testonline.model.*;
+import com.andresochoahernandez.testonline.model.domain.Domanda;
+import com.andresochoahernandez.testonline.model.domain.Risposta;
+import com.andresochoahernandez.testonline.model.domain.Test;
+import com.andresochoahernandez.testonline.model.domain.TestPK;
 import com.andresochoahernandez.testonline.repository.DomandaRepository;
 import com.andresochoahernandez.testonline.repository.InTestRepository;
 import com.andresochoahernandez.testonline.repository.RispostaRespository;
@@ -11,7 +14,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 
-import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;

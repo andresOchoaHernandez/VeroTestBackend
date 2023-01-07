@@ -1,7 +1,7 @@
 package com.andresochoahernandez.testonline;
 
-import com.andresochoahernandez.testonline.model.Domanda;
-import com.andresochoahernandez.testonline.model.InTest;
+import com.andresochoahernandez.testonline.model.domain.Domanda;
+import com.andresochoahernandez.testonline.model.domain.InTest;
 import com.andresochoahernandez.testonline.repository.DomandaRepository;
 import com.andresochoahernandez.testonline.repository.InTestRepository;
 import com.andresochoahernandez.testonline.repository.RispostaRespository;
