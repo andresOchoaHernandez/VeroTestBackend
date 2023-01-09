@@ -1,4 +1,4 @@
-package com.andresochoahernandez.testonline.configuration;
+package com.andresochoahernandez.testonline.configuration.database;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;

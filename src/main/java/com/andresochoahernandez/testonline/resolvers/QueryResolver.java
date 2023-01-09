@@ -8,6 +8,9 @@ import com.andresochoahernandez.testonline.repository.domain.DomandaRepository;
 import com.andresochoahernandez.testonline.repository.domain.InTestRepository;
 import com.andresochoahernandez.testonline.repository.domain.RispostaRespository;
 import com.andresochoahernandez.testonline.repository.domain.TestRepository;
+import com.andresochoahernandez.testonline.resolvers.types.DomandaType;
+import com.andresochoahernandez.testonline.resolvers.types.RispostaType;
+import com.andresochoahernandez.testonline.resolvers.types.TestType;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,8 +21,6 @@ import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-
-import com.andresochoahernandez.testonline.resolvers.types.*;
 
 @Controller
 public class QueryResolver {

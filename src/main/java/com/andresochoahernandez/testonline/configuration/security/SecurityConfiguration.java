@@ -1,4 +1,4 @@
-package com.andresochoahernandez.testonline.configuration;
+package com.andresochoahernandez.testonline.configuration.security;
 
 import com.andresochoahernandez.testonline.service.AgentiService;
 import org.springframework.context.annotation.Bean;
@@ -7,10 +7,8 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
