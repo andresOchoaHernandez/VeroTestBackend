@@ -17,9 +17,9 @@ import java.util.Objects;
 
 @Configuration
 @EnableJpaRepositories(
-        entityManagerFactoryRef = "agentsDatabaseEntityManagerFactory",
-        transactionManagerRef   = "agentsDatabaseTransactionManager",
-        basePackages = {"com.andresochoahernandez.testonline.repository.agents"}
+        entityManagerFactoryRef =  "agentsDatabaseEntityManagerFactory",
+        transactionManagerRef   =  "agentsDatabaseTransactionManager",
+        basePackages            = {"com.andresochoahernandez.testonline.repository.agents"}
 )
 public class AgentsDatabaseConfiguration {
     @Bean

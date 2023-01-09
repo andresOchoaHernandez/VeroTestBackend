@@ -18,9 +18,9 @@ import java.util.Objects;
 
 @Configuration
 @EnableJpaRepositories(
-        entityManagerFactoryRef = "domainDatabaseEntityManagerFactory",
-        transactionManagerRef   = "domainDatabaseTransactionManager",
-        basePackages = {"com.andresochoahernandez.testonline.repository.domain"}
+        entityManagerFactoryRef =  "domainDatabaseEntityManagerFactory",
+        transactionManagerRef   =  "domainDatabaseTransactionManager",
+        basePackages            = {"com.andresochoahernandez.testonline.repository.domain"}
 )
 public class DomainDatabaseConfiguration {
     @Primary
