@@ -12,6 +12,7 @@ import com.andresochoahernandez.testonline.repository.domain.RispostaRespository
 import com.andresochoahernandez.testonline.repository.domain.TestRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -28,12 +29,15 @@ public class DataLoader implements ApplicationRunner {
     private final RispostaRespository risposte;
     private final TestRepository test;
 
-    public DataLoader(UserRepository users, DomandaRepository domande, InTestRepository intest, RispostaRespository risposte, TestRepository test) {
+    private PasswordEncoder encoder;
+
+    public DataLoader(UserRepository users, DomandaRepository domande, InTestRepository intest, RispostaRespository risposte, TestRepository test,PasswordEncoder encoder) {
         this.users = users;
         this.domande = domande;
         this.intest = intest;
         this.risposte = risposte;
         this.test = test;
+        this.encoder = encoder;
     }
 
     @Override
@@ -42,8 +46,8 @@ public class DataLoader implements ApplicationRunner {
         if (!FIRST_RUN) return;
 
         /* LOADING TWO USERS WITH RESPECTIVE ROLES */
-        users.save(new User("Marco", "1234", "ROLE_STUDENTE"));
-        users.save(new User("Enrico", "1234", "ROLE_STUDENTE,ROLE_DOCENTE"));
+        users.save(new User("Marco", encoder.encode("1234"), "ROLE_STUDENTE"));
+        users.save(new User("Enrico",encoder.encode("1234"), "ROLE_STUDENTE,ROLE_DOCENTE"));
 
         /* LOADING DATA TO THE DOMAIN DATABASE */
 
