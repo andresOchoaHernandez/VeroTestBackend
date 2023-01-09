@@ -1,4 +1,4 @@
-package com.andresochoahernandez.testonline.repository;
+package com.andresochoahernandez.testonline.repository.domain;
 
 import com.andresochoahernandez.testonline.model.domain.Test;
 import com.andresochoahernandez.testonline.model.domain.TestPK;

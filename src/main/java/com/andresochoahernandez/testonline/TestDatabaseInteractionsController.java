@@ -2,10 +2,10 @@ package com.andresochoahernandez.testonline;
 
 import com.andresochoahernandez.testonline.model.domain.Domanda;
 import com.andresochoahernandez.testonline.model.domain.InTest;
-import com.andresochoahernandez.testonline.repository.DomandaRepository;
-import com.andresochoahernandez.testonline.repository.InTestRepository;
-import com.andresochoahernandez.testonline.repository.RispostaRespository;
-import com.andresochoahernandez.testonline.repository.TestRepository;
+import com.andresochoahernandez.testonline.repository.domain.DomandaRepository;
+import com.andresochoahernandez.testonline.repository.domain.InTestRepository;
+import com.andresochoahernandez.testonline.repository.domain.RispostaRespository;
+import com.andresochoahernandez.testonline.repository.domain.TestRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
