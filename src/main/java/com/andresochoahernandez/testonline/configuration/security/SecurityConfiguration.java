@@ -25,10 +25,11 @@ public class SecurityConfiguration{
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
         return http
-                .csrf(csrf -> csrf.disable()) // only for /graphiql
-                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/css/style.css","/img/logo.png","/fontawesome-icons/css/all.css").permitAll().anyRequest().authenticated())
                 .userDetailsService(agentiService)
-                .formLogin(Customizer.withDefaults())
+                .formLogin(login -> login.loginPage("/login").permitAll())
+                .logout(logout -> logout.permitAll())
                 .build();
     }
 
