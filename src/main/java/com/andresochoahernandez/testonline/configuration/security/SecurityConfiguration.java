@@ -26,7 +26,7 @@ public class SecurityConfiguration{
     {
         return http
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/css/style.css","/img/logo.png","/fontawesome-icons/css/all.css").permitAll().anyRequest().authenticated())
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/login/**").permitAll().anyRequest().authenticated())
                 .userDetailsService(agentiService)
                 .formLogin(login -> login.loginPage("/login").permitAll())
                 .logout(logout -> logout.permitAll())

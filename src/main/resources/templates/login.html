@@ -5,8 +5,7 @@
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <title>VeroTest</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <link rel="stylesheet" th:href="@{/css/style.css}">
-  <link th:href="@{/fontawesome-icons/css/all.css}" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/login/css/style.css}">
 </head>
 <body>
 <div class="back" aria-label="pagina di login">
@@ -21,6 +20,7 @@
         <label id="label1" for="studente" class= "role">Studente</label>
         <input type="radio" id="docente" name="ruolo" value="Docente" aria-label="docente" tabIndex="7" aria-labelledby='label2'>
         <label id="label2" for="docente" class= "role">Docente</label>
+        <br><br>
         <div class="divinput">
           <input type="text" name="username" placeholder="Username *" class= "input" tabIndex="9" aria-required="true" required>
           <br><br><input type="password" name="password" placeholder="Password *" class ="input" tabIndex="10" aria-required="true" required>
@@ -36,7 +36,7 @@
     </div>
   </div>
   <div class="logo">
-    <img th:src="@{/img/logo.png}" alt="logo università di verona" width="60%" tabIndex="1"/>
+    <img th:src="@{/login/img/logo.png}" alt="logo università di verona" width="60%" tabIndex="1"/>
   </div>
 </div>
 </body>
