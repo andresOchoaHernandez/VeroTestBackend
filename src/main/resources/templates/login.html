@@ -17,21 +17,21 @@
     <h2 tabIndex="5">LOGIN</h2>
     <div>
       <form name="FormLogin" th:action="@{/login}" method="post" encType='multipart/form-data' role="form" aria-label="seleziona se sei studente o docente" tabIndex="6">
-        <input type="radio" id="studente" name="ruolo" value="Studente" tabIndex="7" aria-labelledby='label1'>
+        <input type="radio" id="studente" name="ruolo" value="Studente" tabIndex="7" aria-labelledby='label1' required>
         <label id="label1" for="studente" class= "role">Studente</label>
         <input type="radio" id="docente" name="ruolo" value="Docente" aria-label="docente" tabIndex="7" aria-labelledby='label2'>
         <label id="label2" for="docente" class= "role">Docente</label>
         <div class="divinput">
-          <input type="text" name="username" placeholder="Username *" class= "input" tabIndex="9" aria-required="true">
-          <br><br><input type="password" name="password" placeholder="Password *" class ="input" tabIndex="10" aria-required="true">
+          <input type="text" name="username" placeholder="Username *" class= "input" tabIndex="9" aria-required="true" required>
+          <br><br><input type="password" name="password" placeholder="Password *" class ="input" tabIndex="10" aria-required="true" required>
           <br><br><input type="submit" value="ACCEDI" class ="btnaccedi" onClick={checkedRole} tabIndex="11">
         </div>
-        <div th:if="${param.error}" class="alert alert-error">
+        <p th:if="${param.error}" class="alert alert-error" id="loginErrorMessage">
           Credenziali non valide
-        </div>
-        <div th:if="${param.logout}" class="alert alert-success">
+        </p>
+        <p th:if="${param.logout}" class="alert alert-success" id="logOutMessage">
           Hai effettuato il logout
-        </div>
+        </p>
       </form>
     </div>
   </div>
