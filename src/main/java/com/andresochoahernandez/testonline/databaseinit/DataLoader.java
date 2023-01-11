@@ -29,7 +29,7 @@ public class DataLoader implements ApplicationRunner {
     private final RispostaRespository risposte;
     private final TestRepository test;
 
-    private PasswordEncoder encoder;
+    private final PasswordEncoder encoder;
 
     public DataLoader(UserRepository users, DomandaRepository domande, InTestRepository intest, RispostaRespository risposte, TestRepository test,PasswordEncoder encoder) {
         this.users = users;
