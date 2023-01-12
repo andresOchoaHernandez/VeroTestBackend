@@ -30,6 +30,7 @@ public class SecurityConfiguration{
                 .userDetailsService(agentiService)
                 .formLogin(login -> login.loginPage("/login").permitAll().failureUrl("/login-error"))
                 .build();
+        //http://localhost:3000/
     }
 
     @Bean
