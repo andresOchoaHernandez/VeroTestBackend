@@ -28,8 +28,7 @@ public class SecurityConfiguration{
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/login/**").permitAll().anyRequest().authenticated())
                 .userDetailsService(agentiService)
-                .formLogin(login -> login.loginPage("/login").permitAll())
-                .logout(logout -> logout.permitAll())
+                .formLogin(login -> login.loginPage("/login").permitAll().failureUrl("/login-error"))
                 .build();
     }
 
