@@ -28,25 +28,25 @@ public class MutationResolver {
         this.intestService = intestService;
     }
 
-    @PreAuthorize("hasRole('DOCENTE')")
+    @PreAuthorize("hasAuthority('SCOPE_DOCENTE')")
     @MutationMapping
     public boolean createTest(@Argument TestInput input){
         return testService.createTest(input);
     }
 
-    @PreAuthorize("hasRole('DOCENTE')")
+    @PreAuthorize("hasAuthority('SCOPE_DOCENTE')")
     @MutationMapping
     public boolean createDomanda(@Argument DomandaInput input){
         return domandaService.createDomanda(input);
     }
 
-    @PreAuthorize("hasRole('DOCENTE')")
+    @PreAuthorize("hasAuthority('SCOPE_DOCENTE')")
     @MutationMapping
     public boolean createRisposta(@Argument RispostaInput input){
         return rispostaService.createRisposta(input);
     }
 
-    @PreAuthorize("hasRole('DOCENTE')")
+    @PreAuthorize("hasAuthority('SCOPE_DOCENTE')")
     @MutationMapping
     public boolean connectDomandaToTest(@Argument InTestInput input){
         return intestService.connectDomandaToTest(input);

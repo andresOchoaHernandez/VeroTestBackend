@@ -46,8 +46,8 @@ public class DataLoader implements ApplicationRunner {
         if (!FIRST_RUN) return;
 
         /* LOADING TWO USERS WITH RESPECTIVE ROLES */
-        users.save(new User("Marco", encoder.encode("1234"), "ROLE_STUDENTE"));
-        users.save(new User("Enrico",encoder.encode("1234"), "ROLE_STUDENTE,ROLE_DOCENTE"));
+        users.save(new User("Marco", encoder.encode("1234"), "STUDENTE"));
+        users.save(new User("Enrico",encoder.encode("1234"), "STUDENTE,DOCENTE"));
 
         /* LOADING DATA TO THE DOMAIN DATABASE */
 

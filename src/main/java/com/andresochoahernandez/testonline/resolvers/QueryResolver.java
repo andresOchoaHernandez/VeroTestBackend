@@ -28,56 +28,53 @@ public class QueryResolver {
         this.rispostaService = rispostaService;
     }
 
-    @PreAuthorize("hasRole('DOCENTE')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_DOCENTE','SCOPE_STUDENTE')")
     @QueryMapping
-    public List<TestType> allTest()
-    {
-        return testService.GQLTypeGetAllTests();
-    }
+    public List<TestType> allTest() {return testService.GQLTypeGetAllTests();}
 
-    @PreAuthorize("hasAnyRole('DOCENTE','STUDENTE')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_DOCENTE','SCOPE_STUDENTE')")
     @QueryMapping
     public TestType testByDateHourAndName(@Argument String data, @Argument String hour, @Argument String nome)
     {
         return testService.GQLTypeGetTestByDateHourAndName(data,hour,nome);
     }
 
-    @PreAuthorize("hasAnyRole('DOCENTE','STUDENTE')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_DOCENTE','SCOPE_STUDENTE')")
     @QueryMapping
     public List<TestType> testByDateAndName(@Argument String data, @Argument String nome)
     {
         return testService.GQLTypeGetTestsByDateAndName(data,nome);
     }
 
-    @PreAuthorize("hasAnyRole('DOCENTE','STUDENTE')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_DOCENTE','SCOPE_STUDENTE')")
     @QueryMapping
     public List<TestType> testByDate(@Argument String data)
     {
         return testService.GQLTypeGetTestsByDate(data);
     }
 
-    @PreAuthorize("hasAnyRole('DOCENTE','STUDENTE')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_DOCENTE','SCOPE_STUDENTE')")
     @QueryMapping
     public List<TestType> testByName(@Argument String nome)
     {
         return testService.GQLTypeGetTestsByName(nome);
     }
 
-    @PreAuthorize("hasAnyRole('DOCENTE','STUDENTE')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_DOCENTE','SCOPE_STUDENTE')")
     @QueryMapping
     public DomandaType domandaByNome(@Argument String nome)
     {
         return domandaService.GQLTypeGetDomandaByNome(nome);
     }
 
-    @PreAuthorize("hasAnyRole('DOCENTE','STUDENTE')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_DOCENTE','SCOPE_STUDENTE')")
     @QueryMapping
     public List<DomandaType> allDomandaByTest(@Argument String data, @Argument String hour, @Argument String nome)
     {
         return domandaService.GQLTypeGetAllDomandaByTest(data,hour,nome);
     }
 
-    @PreAuthorize("hasAnyRole('DOCENTE','STUDENTE')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_DOCENTE','SCOPE_STUDENTE')")
     @QueryMapping
     public List<RispostaType> allRispostaOfDomanda(@Argument String domanda,Authentication auth)
     {
