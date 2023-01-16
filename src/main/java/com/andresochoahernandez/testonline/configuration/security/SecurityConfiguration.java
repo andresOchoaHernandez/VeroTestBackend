@@ -1,7 +1,7 @@
 package com.andresochoahernandez.testonline.configuration.security;
 
 import com.andresochoahernandez.testonline.service.AgentiService;
-import com.nimbusds.jose.jwk.JWK;
+import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -12,14 +12,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -28,17 +25,19 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.security.NoSuchAlgorithmException;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration{
 
     private final AgentiService agentiService;
-    private final RsaKeyProperties jwtConfigProperties;
+    private RSAKey rsaKey;
 
-    public SecurityConfiguration(AgentiService agentiService, RsaKeyProperties jwtConfigProperties){
+    public SecurityConfiguration(AgentiService agentiService, RsaKeyGenerator rsaKeyGenerator) throws NoSuchAlgorithmException {
         this.agentiService = agentiService;
-        this.jwtConfigProperties = jwtConfigProperties;
+        rsaKey = rsaKeyGenerator.generate();
     }
 
     @Bean
@@ -60,13 +59,12 @@ public class SecurityConfiguration{
                 .build();
     }
     @Bean
-    public JwtDecoder jwtDecoder() {
-        return NimbusJwtDecoder.withPublicKey(jwtConfigProperties.publicKey()).build();
+    public JwtDecoder jwtDecoder() throws JOSEException {
+        return NimbusJwtDecoder.withPublicKey(rsaKey.toRSAPublicKey()).build();
     }
     @Bean
     public JwtEncoder jwtEncoder() {
-        JWK jwk = new RSAKey.Builder(jwtConfigProperties.publicKey()).privateKey(jwtConfigProperties.rsaPrivateKey()).build();
-        JWKSource<SecurityContext> jks = new ImmutableJWKSet<>(new JWKSet(jwk));
+        JWKSource<SecurityContext> jks = new ImmutableJWKSet<>(new JWKSet(rsaKey));
         return new NimbusJwtEncoder(jks);
     }
     @Bean
