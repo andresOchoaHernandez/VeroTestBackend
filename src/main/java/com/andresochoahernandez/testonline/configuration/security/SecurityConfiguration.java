@@ -40,7 +40,7 @@ public class SecurityConfiguration{
 
     public SecurityConfiguration(AgentiService agentiService, RsaKeyGenerator rsaKeyGenerator) throws NoSuchAlgorithmException {
         this.agentiService = agentiService;
-        rsaKey = rsaKeyGenerator.generate();
+        this.rsaKey = rsaKeyGenerator.generate();
     }
 
     @Bean
