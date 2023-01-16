@@ -15,6 +15,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,7 +28,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-
 import java.security.NoSuchAlgorithmException;
 
 @Configuration
@@ -36,11 +36,11 @@ import java.security.NoSuchAlgorithmException;
 public class SecurityConfiguration{
 
     private final AgentiService agentiService;
-    private RSAKey rsaKey;
+    private final RSAKey rsaKey;
 
-    public SecurityConfiguration(AgentiService agentiService, RsaKeyGenerator rsaKeyGenerator) throws NoSuchAlgorithmException {
+    public SecurityConfiguration(AgentiService agentiService) throws NoSuchAlgorithmException {
         this.agentiService = agentiService;
-        this.rsaKey = rsaKeyGenerator.generate();
+        this.rsaKey = RsaKeyGenerator.generate();
     }
 
     @Bean
@@ -55,7 +55,7 @@ public class SecurityConfiguration{
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
         return http
-                .csrf(csrf -> csrf.disable())
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/token").permitAll().anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
