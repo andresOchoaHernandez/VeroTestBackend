@@ -70,7 +70,7 @@ public class SecurityConfiguration{
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/token", config);
-        source.registerCorsConfiguration("/graphql/**", config);
+        source.registerCorsConfiguration("/graphql", config);
         return new CorsFilter(source);
     }
     @Bean
