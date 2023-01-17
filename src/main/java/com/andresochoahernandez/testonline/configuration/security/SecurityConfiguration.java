@@ -34,15 +34,12 @@ import java.security.NoSuchAlgorithmException;
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration{
-
     private final AgentiService agentiService;
     private final RSAKey rsaKey;
-
     public SecurityConfiguration(AgentiService agentiService) throws NoSuchAlgorithmException {
         this.agentiService = agentiService;
         this.rsaKey = RsaKeyGenerator.generate();
     }
-
     @Bean
     public AuthenticationManager authenticationManager(PasswordEncoder passwordEncoder)
     {

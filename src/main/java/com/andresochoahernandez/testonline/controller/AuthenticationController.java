@@ -20,7 +20,6 @@ public class AuthenticationController {
         this.authenticationManager = authenticationManager;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/token")
     public String token(@RequestBody LoginRequest loginRequest)
     {
