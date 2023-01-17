@@ -66,10 +66,11 @@ public class SecurityConfiguration{
     public CorsFilter corsFilter() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("*");
+        config.addAllowedOrigin("http://localhost:3000");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
-        source.registerCorsConfiguration("/**", config);
+        source.registerCorsConfiguration("/token", config);
+        source.registerCorsConfiguration("/graphql/**", config);
         return new CorsFilter(source);
     }
     @Bean
