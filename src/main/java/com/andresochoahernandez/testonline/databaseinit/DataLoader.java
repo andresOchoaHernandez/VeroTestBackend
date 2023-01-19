@@ -102,7 +102,7 @@ public class DataLoader implements ApplicationRunner {
         risposte.save(new Risposta("lo speedup teorico data una percentuale di codice che può essere parallelizzato ed uno speedup globale", BigDecimal.valueOf(0.0), leggeDiAmdahl));
         risposte.save(new Risposta("SPEEDUP = TIME_sequential_exec / TIME_parallel_exec", BigDecimal.valueOf(1.0), speedup));
         risposte.save(new Risposta("SPEEDUP = TIME_parallel_exec / TIME_sequential_exec", BigDecimal.valueOf(0.0), speedup));
-        risposte.save(new Risposta("SISD", BigDecimal.valueOf(0.25), tassonomiaDiFlynn));
+        risposte.save(new Risposta("SISD", BigDecimal.valueOf(1.0), tassonomiaDiFlynn));
         risposte.save(new Risposta("MISD", BigDecimal.valueOf(0.25), tassonomiaDiFlynn));
         risposte.save(new Risposta("SIMD", BigDecimal.valueOf(0.25), tassonomiaDiFlynn));
         risposte.save(new Risposta("MIMD", BigDecimal.valueOf(0.25), tassonomiaDiFlynn));

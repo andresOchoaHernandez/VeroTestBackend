@@ -1,17 +1,14 @@
 package com.andresochoahernandez.testonline.resolvers;
 
-import com.andresochoahernandez.testonline.resolvers.inputs.DomandaInput;
-import com.andresochoahernandez.testonline.resolvers.inputs.InTestInput;
-import com.andresochoahernandez.testonline.resolvers.inputs.RispostaInput;
-import com.andresochoahernandez.testonline.resolvers.inputs.TestInput;
-import com.andresochoahernandez.testonline.service.DomandaService;
-import com.andresochoahernandez.testonline.service.InTestService;
-import com.andresochoahernandez.testonline.service.RispostaService;
-import com.andresochoahernandez.testonline.service.TestService;
+import com.andresochoahernandez.testonline.resolvers.inputs.*;
+import com.andresochoahernandez.testonline.resolvers.types.ResultType;
+import com.andresochoahernandez.testonline.service.*;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+
+import java.util.List;
 
 @Controller
 public class MutationResolver {
@@ -20,12 +17,14 @@ public class MutationResolver {
     private final DomandaService domandaService;
     private final RispostaService rispostaService;
     private final InTestService intestService;
+    private final CompilazioneService compilazioneService;
 
-    public MutationResolver(TestService testService, DomandaService domandaService, RispostaService rispostaService, InTestService intestService) {
+    public MutationResolver(TestService testService, DomandaService domandaService, RispostaService rispostaService, InTestService intestService, CompilazioneService compilazioneService) {
         this.testService = testService;
         this.domandaService = domandaService;
         this.rispostaService = rispostaService;
         this.intestService = intestService;
+        this.compilazioneService = compilazioneService;
     }
 
     @PreAuthorize("hasAuthority('SCOPE_DOCENTE')")
@@ -52,4 +51,15 @@ public class MutationResolver {
         return intestService.connectDomandaToTest(input);
     }
 
+    @PreAuthorize("hasAnyAuthority('SCOPE_DOCENTE','SCOPE_STUDENTE')")
+    @MutationMapping
+    public boolean insertCompilazione(@Argument CompilazioneInput input){
+        return compilazioneService.insertCompilazione(input);
+    }
+
+    @PreAuthorize("hasAnyAuthority('SCOPE_DOCENTE','SCOPE_STUDENTE')")
+    @MutationMapping
+    public List<ResultType> completeTest(@Argument CompilazioneInput input){
+       return compilazioneService.completeTest(input);
+    }
 }

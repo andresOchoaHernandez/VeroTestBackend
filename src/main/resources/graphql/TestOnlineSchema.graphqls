@@ -13,6 +13,9 @@ type Query
 
     """ RISPOSTA QUERIES """
     allRispostaOfDomanda(domanda:String!): [risposta]
+
+    """ COMPILAZIONE QUERY """
+    allCompilazioniByUserOfExam(idUtente:Int!,dataTest:String!,oraTest:String!,nomeTest:String!):[compilazione]
 }
 
 type Mutation
@@ -21,7 +24,8 @@ type Mutation
     createDomanda(input:domandaInput):Boolean
     createRisposta(input:rispostaInput):Boolean
     connectDomandaToTest(input:intestInput):Boolean
-    # TODO: WHAT ABOUT UPDATES?
+    insertCompilazione(input:compilazioneInput):Boolean
+    completeTest(input:compilazioneInput):[result]
 }
 
 type test
@@ -48,6 +52,23 @@ type risposta
     testo:            String!
     punteggio:        Float
     domanda:          String!
+}
+
+type compilazione
+{
+    idUtente:         Int!
+    dataTest:         String!
+    oraTest:          String!
+    nomeTest:         String!
+    nomeDomanda:      String!
+    idRisposta:       Int!
+}
+
+type result
+{
+    rispostaData:        String!
+    puntiRispostaData:   Float!
+    rispostaEsatta:      String!
 }
 
 input testInput
@@ -81,4 +102,14 @@ input intestInput
     dataTest:        String!
     oraTest:         String!
     nomeTest:        String!
+}
+
+input compilazioneInput
+{
+    idUtente:        Int!
+    dataTest:        String!
+    oraTest:         String!
+    nomeTest:        String!
+    nomeDomanda:     String!
+    idRisposta:      Int!
 }

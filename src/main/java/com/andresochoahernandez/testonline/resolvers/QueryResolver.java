@@ -1,8 +1,10 @@
 package com.andresochoahernandez.testonline.resolvers;
 
+import com.andresochoahernandez.testonline.resolvers.types.CompilazioneType;
 import com.andresochoahernandez.testonline.resolvers.types.DomandaType;
 import com.andresochoahernandez.testonline.resolvers.types.RispostaType;
 import com.andresochoahernandez.testonline.resolvers.types.TestType;
+import com.andresochoahernandez.testonline.service.CompilazioneService;
 import com.andresochoahernandez.testonline.service.DomandaService;
 import com.andresochoahernandez.testonline.service.RispostaService;
 import com.andresochoahernandez.testonline.service.TestService;
@@ -20,12 +22,14 @@ public class QueryResolver {
     private final TestService testService;
     private final DomandaService domandaService;
     private final RispostaService rispostaService;
+    private final CompilazioneService compilazioneService;
 
-    public QueryResolver(TestService testService,DomandaService domandaService,RispostaService rispostaService)
+    public QueryResolver(TestService testService, DomandaService domandaService, RispostaService rispostaService, CompilazioneService compilazioneService)
     {
         this.testService = testService;
         this.domandaService = domandaService;
         this.rispostaService = rispostaService;
+        this.compilazioneService = compilazioneService;
     }
 
     @PreAuthorize("hasAnyAuthority('SCOPE_DOCENTE','SCOPE_STUDENTE')")
@@ -80,5 +84,12 @@ public class QueryResolver {
     {
         boolean canSeeAnswerPoints = auth.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_DOCENTE"));
         return rispostaService.GQLTypeGetAllRispostaOfDomanda(domanda,canSeeAnswerPoints);
+    }
+
+    @PreAuthorize("hasAnyAuthority('SCOPE_DOCENTE','SCOPE_STUDENTE')")
+    @QueryMapping
+    public List<CompilazioneType> allCompilazioniByUserOfExam(@Argument Integer idUtente,@Argument String dataTest,@Argument String oraTest,@Argument String nomeTest)
+    {
+        return compilazioneService.getAllCompilazioniOfUserOfExam(idUtente,dataTest,oraTest,nomeTest);
     }
 }
