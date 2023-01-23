@@ -35,6 +35,10 @@ public class CompilazioneService {
 
     public boolean insertCompilazione(CompilazioneInput input){
         try{
+            List<Compilazione> similarComps = compilazioni.getSimilarCompilations(input.getIdUtente(),Timestamp.valueOf(input.getDataTest() + " " + input.getOraTest() + ":00"), input.getNomeTest(), input.getNomeDomanda(), input.getIdRisposta());
+            for(Compilazione cmpltn : similarComps){
+                compilazioni.delete(cmpltn);
+            }
             compilazioni.save(input.toJpaEntity());
             return true;
         }

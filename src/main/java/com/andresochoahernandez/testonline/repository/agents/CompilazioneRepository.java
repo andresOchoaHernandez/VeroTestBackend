@@ -19,4 +19,7 @@ public interface CompilazioneRepository extends JpaRepository<Compilazione, Comp
     @Modifying
     @Query("DELETE FROM Compilazione c WHERE c.idUtente = :idUtente AND c.dataEOraTest = :dataEOraTest AND c.nomeTest = :nomeTest")
     void deleteAllByUserAndExam(@Param(value = "idUtente") int idUtente,@Param(value = "dataEOraTest") Timestamp dataEOraTest,@Param(value = "nomeTest") String nomeTest);
+
+    @Query("SELECT c FROM Compilazione c WHERE c.idUtente = :idUtente AND c.dataEOraTest = :dataEOraTest AND c.nomeTest = :nomeTest AND c.nomeDomanda = :nomeDomanda AND c.idRisposta <> :idRisposta")
+    List<Compilazione> getSimilarCompilations(@Param(value = "idUtente") int idUtente,@Param(value = "dataEOraTest") Timestamp dataEOraTest,@Param(value = "nomeTest") String nomeTest,@Param(value = "nomeDomanda") String nomeDomanda,@Param(value = "idRisposta") int idRisposta);
 }
