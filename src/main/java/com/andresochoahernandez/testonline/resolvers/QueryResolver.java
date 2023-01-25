@@ -82,7 +82,7 @@ public class QueryResolver {
     @QueryMapping
     public List<RispostaType> allRispostaOfDomanda(@Argument String domanda,Authentication auth)
     {
-        boolean canSeeAnswerPoints = auth.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_DOCENTE"));
+        boolean canSeeAnswerPoints = auth.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("SCOPE_DOCENTE"));
         return rispostaService.GQLTypeGetAllRispostaOfDomanda(domanda,canSeeAnswerPoints);
     }
 
