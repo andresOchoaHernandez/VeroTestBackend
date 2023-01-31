@@ -28,4 +28,24 @@ public class TestType
         this.ordineCasuale = test.isOrdineCasuale();
         this.domandeConNumero = test.isDomandeConNumero();
     }
+
+    public String getData() {
+        return data;
+    }
+
+    public String getOra() {
+        return ora;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public boolean isOrdineCasuale() {
+        return ordineCasuale;
+    }
+
+    public boolean isDomandeConNumero() {
+        return domandeConNumero;
+    }
 }

@@ -1,9 +1,6 @@
 package com.andresochoahernandez.testonline.resolvers;
 
-import com.andresochoahernandez.testonline.resolvers.types.CompilazioneType;
-import com.andresochoahernandez.testonline.resolvers.types.DomandaType;
-import com.andresochoahernandez.testonline.resolvers.types.RispostaType;
-import com.andresochoahernandez.testonline.resolvers.types.TestType;
+import com.andresochoahernandez.testonline.resolvers.types.*;
 import com.andresochoahernandez.testonline.service.CompilazioneService;
 import com.andresochoahernandez.testonline.service.DomandaService;
 import com.andresochoahernandez.testonline.service.RispostaService;
@@ -14,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -91,5 +89,17 @@ public class QueryResolver {
     public List<CompilazioneType> allCompilazioniByUserOfExam(@Argument Integer idUtente,@Argument String dataTest,@Argument String oraTest,@Argument String nomeTest)
     {
         return compilazioneService.getAllCompilazioniOfUserOfExam(idUtente,dataTest,oraTest,nomeTest);
+    }
+
+    @PreAuthorize("hasAnyAuthority('SCOPE_DOCENTE','SCOPE_STUDENTE')")
+    @QueryMapping
+    public List<TestWithCompilationFlagType> examListWithPreviousCompilationFlag(@Argument Integer idUtente){
+        List<TestType> allTests = testService.GQLTypeGetAllTests();
+        List<TestWithCompilationFlagType> result = new LinkedList<>();
+        for (TestType currTest : allTests){
+            List<CompilazioneType> allCompilationsOfUserOfEmxam = compilazioneService.getAllCompilazioniOfUserOfExam(idUtente, currTest.getData(), currTest.getOra(), currTest.getNome());
+            result.add(new TestWithCompilationFlagType(currTest.getData(), currTest.getOra(), currTest.getNome(), !allCompilationsOfUserOfEmxam.isEmpty()));
+        }
+        return result;
     }
 }

@@ -16,6 +16,7 @@ type Query
 
     """ COMPILAZIONE QUERY """
     allCompilazioniByUserOfExam(idUtente:Int!,dataTest:String!,oraTest:String!,nomeTest:String!):[compilazione]
+    examListWithPreviousCompilationFlag(idUtente:Int!):[testWithCompilationFlag]
 }
 
 type Mutation
@@ -69,6 +70,14 @@ type result
     rispostaData:        String!
     puntiRispostaData:   Float!
     rispostaEsatta:      String!
+}
+
+type testWithCompilationFlag
+{
+    data:                 String!
+    ora:                  String!
+    nome:                 String!
+    existPrevCompilation: Boolean!
 }
 
 input testInput
